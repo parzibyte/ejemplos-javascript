@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+    <!--
+  Manejar la web con comandos de voz usando JavaScript y la librería Annyang
+
+  https://parzibyte.me/blog
+    -->
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1,
+            shrink-to-fit=no">
+        <meta name="description" content="Comandos de voz en la web">
+        <meta name="author" content="Parzibyte">
+        <title>Comados de voz en la web con Annyang</title>
+        <link
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous">
+        <script src="annyang.min.js"></script>
+
+    </head>
+
+    <body>
+        <main role="main" class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Comandos de voz en la web con JavaScript y Annyang</h1>
+                    <a href="//parzibyte.me/blog" target="_blank">By Parzibyte</a>
+                    <p>
+                        <strong>Intenta con:</strong>
+                        <br>Hola
+                        <br>Reporte de ventas de {mes}
+                        <br>Enviar correo a {dirección}
+                        <br>Mi nombre es {Nombre} y tengo {años} años
+                    </p>
+                </div>
+                <div class="col-6">
+                    <h2>Comandos reconocidos</h2>
+                    <div class="alert alert-success">
+
+                        <p id="comandosReconocidos"></p>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <h2>Voz escuchada, sin reconocer</h2>
+                    <div class="alert alert-info">
+                        <p id="vozDetectada">
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        <script src="script.js"></script>
+    </body>
+
+</html>
