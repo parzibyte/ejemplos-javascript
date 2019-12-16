@@ -10,6 +10,8 @@ Múltiples ejemplos de JavaScript que no necesitan un repositorio aislado
 
 - Comandos de voz en la web | [Tutorial](https://parzibyte.me/blog/2019/12/09/comandos-voz-web-javascript-annyang/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/comandos-voz-annyang)
 
+- Sweet Alert 2 | [Tutorial](https://parzibyte.me/blog/2019/12/16/sweet-alert-2-tutorial-ejemplos/) | [Demo](https://parzibyte.github.io/sweet-alert-2)
+
 # Más sobre JavaScript
 
 Explora el contenido que tengo en mi blog sobre [JavaScript](https://parzibyte.me/blog/category/javascript)
