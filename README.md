@@ -12,6 +12,8 @@ Múltiples ejemplos de JavaScript que no necesitan un repositorio aislado
 
 - Sweet Alert 2 | [Tutorial](https://parzibyte.me/blog/2019/12/16/sweet-alert-2-tutorial-ejemplos/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/sweet-alert-2)
 
+- Librería HTTP, envoltura de fetch | [Tutorial](https://parzibyte.me/blog/2020/01/09/creando-libreria-http-javascript/)
+
 # Más sobre JavaScript
 
 Explora el contenido que tengo en mi blog sobre [JavaScript](https://parzibyte.me/blog/category/javascript)
