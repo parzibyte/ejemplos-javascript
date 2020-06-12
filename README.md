@@ -14,6 +14,8 @@ Múltiples ejemplos de JavaScript que no necesitan un repositorio aislado
 
 - Librería HTTP, envoltura de fetch | [Tutorial](https://parzibyte.me/blog/2020/01/09/creando-libreria-http-javascript/)
 
+- Comunicar ventanas en JavaScript | [Tutorial](https://parzibyte.me/blog/2020/06/12/comunicacion-ventanas-javascript/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/comunicacion-ventanas/)
+
 # Más sobre JavaScript
 
 Explora el contenido que tengo en mi blog sobre [JavaScript](https://parzibyte.me/blog/category/javascript)
