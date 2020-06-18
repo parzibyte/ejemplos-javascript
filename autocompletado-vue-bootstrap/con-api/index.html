@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Autocompletado</title>
+	<link href="style.css" rel="stylesheet" type="text/css" />
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<link href="https://unpkg.com/vue-bootstrap-typeahead/dist/VueBootstrapTypeahead.css" rel="stylesheet">
+	<script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js" type="text/javascript">
+
+	</script>
+	<script src="https://unpkg.com/vue-bootstrap-typeahead"></script>
+</head>
+
+<body>
+	<div id="app" class="container-fluid">
+		<div class="row">
+			<div class="col-12">
+				<h1>Autocompletado</h1>
+				<a href="//parzibyte.me/blog">By Parzibyte</a>
+				<div>
+					<vue-bootstrap-typeahead @hit="onArticuloSeleccionado" :serializer="serializarValor" @input="buscarArticulos"
+					 v-model="busqueda" :data="articulos" placeholder="Busca algo en la Wikipedia" />
+				</div>
+				<div class="mt-2 alert alert-success">
+					Artículo seleccionado es:
+					{{articuloSeleccionado}}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="script.js">
+
+	</script>
+</body>
+
+</html>
