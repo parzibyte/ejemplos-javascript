@@ -18,6 +18,8 @@ Múltiples ejemplos de JavaScript que no necesitan un repositorio aislado
 
 - Autocompletado con Vue, Bootstrap y API | [Tutorial](https://parzibyte.me/blog/2020/06/18/autocompletado-bootstrap-vue-api/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/autocompletado-vue-bootstrap)
 
+- Leer código de barras con JavaScript | [Tutorial](https://parzibyte.me/blog/2020/06/22/leer-codigo-barras-javascript-camara/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/quaggajs/con-dibujo/)
+
 # Más sobre JavaScript
 
 Explora el contenido que tengo en mi blog sobre [JavaScript](https://parzibyte.me/blog/category/javascript)
