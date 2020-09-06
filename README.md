@@ -20,6 +20,8 @@ Múltiples ejemplos de JavaScript que no necesitan un repositorio aislado
 
 - Leer código de barras con JavaScript | [Tutorial](https://parzibyte.me/blog/2020/06/22/leer-codigo-barras-javascript-camara/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/quaggajs/con-dibujo/)
 
+- Generar PDF a partir de HTML con html2pdf | [Tutorial](https://parzibyte.me/blog/2020/09/05/html-pdf-javascript/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/html-a-pdf/)
+
 # Más sobre JavaScript
 
 Explora el contenido que tengo en mi blog sobre [JavaScript](https://parzibyte.me/blog/category/javascript)
