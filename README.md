@@ -22,6 +22,8 @@ Múltiples ejemplos de JavaScript que no necesitan un repositorio aislado
 
 - Generar PDF a partir de HTML con html2pdf | [Tutorial](https://parzibyte.me/blog/2020/09/05/html-pdf-javascript/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/html-a-pdf/)
 
+- Reproducir sonidos con JavaScript | [Tutorial](https://parzibyte.me/blog/2020/09/28/reproducir-sonidos-javascript/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/reproducir-sonido/)
+
 # Más sobre JavaScript
 
 Explora el contenido que tengo en mi blog sobre [JavaScript](https://parzibyte.me/blog/category/javascript)
