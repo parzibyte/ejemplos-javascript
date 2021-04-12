@@ -24,6 +24,7 @@ Múltiples ejemplos de JavaScript que no necesitan un repositorio aislado
 
 - Reproducir sonidos con JavaScript | [Tutorial](https://parzibyte.me/blog/2020/09/28/reproducir-sonidos-javascript/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/reproducir-sonido/)
 
+- Validar formularios con JavaScript | [Tutorial](https://parzibyte.me/blog/2020/09/28/reproducir-sonidos-javascript/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/validacion-formularios/)
 # Más sobre JavaScript
 
 Explora el contenido que tengo en mi blog sobre [JavaScript](https://parzibyte.me/blog/category/javascript)

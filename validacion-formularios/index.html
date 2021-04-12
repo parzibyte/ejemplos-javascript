@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Plantilla básica para Bootstrap">
+    <meta name="author" content="Parzibyte">
+    <title>Validar formularios con JavaScript - By Parzibyte</title>
+    <!-- Cargar el CSS de Boostrap-->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Cargar estilos propios -->
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <main role="main" class="container">
+        <div class="row">
+            <!-- Aquí pon las col-x necesarias, comienza tu contenido, etcétera -->
+            <div class="col-12">
+                <h1>Validación de formularios con JavaScript</h1>
+                <a href="//parzibyte.me/blog" target="_blank">By Parzibyte</a>
+                <br>
+                <form action="procesar.html" id="formulario">
+                    <div class="form-group">
+                        <input name="nombre" required id="nombre" type="text" class="form-control" placeholder="Nombre">
+                    </div>
+                    <div class="form-group">
+                        <input name="correo" required id="correo" type="email" class="form-control"
+                            placeholder="Correo">
+                    </div>
+                    <button class="btn btn-success">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <script>
+        // Obtener referencias 
+        const $formulario = document.querySelector("#formulario"),
+            $nombre = document.querySelector("#nombre"),
+            $correo = document.querySelector("#correo");
+        $formulario.onsubmit = evento => {
+            evento.preventDefault();
+            const nombre = $nombre.value,
+                correo = $correo.value;
+            // Validar
+            if (nombre === "Luis" || nombre === "José") {
+                alert("No pueden ser esos nombres");
+                return;
+            }
+            if (correo.endsWith("@hotmail.com")) {
+                alert("No puede ser de hotmail");
+                return;
+            }
+            $formulario.submit();
+        };
+    </script>
+
+</body>
+
+</html>
