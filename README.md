@@ -16,7 +16,9 @@ Múltiples ejemplos de JavaScript que no necesitan un repositorio aislado
 
 - Comunicar ventanas en JavaScript | [Tutorial](https://parzibyte.me/blog/2020/06/12/comunicacion-ventanas-javascript/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/comunicacion-ventanas/)
 
-- Autocompletado con Vue, Bootstrap y API | [Tutorial](https://parzibyte.me/blog/2020/06/18/autocompletado-bootstrap-vue-api/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/autocompletado-vue-bootstrap)
+- Autocompletado con Vue, Bootstrap y API (con api) | [Tutorial](https://parzibyte.me/blog/2020/06/18/autocompletado-bootstrap-vue-api/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/autocompletado-vue-bootstrap/con-api/)
+
+- Autocompletado con Vue, Bootstrap y API (estatico) | [Tutorial](https://parzibyte.me/blog/2020/06/18/autocompletado-bootstrap-vue-api/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/autocompletado-vue-bootstrap/estatico/)
 
 - Leer código de barras con JavaScript | [Tutorial](https://parzibyte.me/blog/2020/06/22/leer-codigo-barras-javascript-camara/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/quaggajs/con-dibujo/)
 
