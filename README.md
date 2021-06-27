@@ -26,6 +26,8 @@ Múltiples ejemplos de JavaScript que no necesitan un repositorio aislado
 
 - Validar formularios con JavaScript | [Tutorial](https://parzibyte.me/blog/2021/04/12/validar-formularios-javascript/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/validacion-formularios/)
 
+- Generar códigos QR con JavaScript | [Tutorial](https://parzibyte.me/blog/2021/06/26/generar-codigos-qr-javascript/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/generar-qr/)
+
 # Más sobre JavaScript
 
 Explora el contenido que tengo en mi blog sobre [JavaScript](https://parzibyte.me/blog/category/javascript)
