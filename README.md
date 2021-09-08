@@ -30,6 +30,8 @@ Múltiples ejemplos de JavaScript que no necesitan un repositorio aislado
 
 - Generar códigos QR con JavaScript | [Tutorial](https://parzibyte.me/blog/2021/06/26/generar-codigos-qr-javascript/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/generar-qr/)
 
+- Dibujar sobre un canvas usando JavaScript y el mouse | [Tutorial](https://parzibyte.me/blog/2021/09/08/dibujar-canvas-mouse-javascript/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/paint-js/)
+
 # Más sobre JavaScript
 
 Explora el contenido que tengo en mi blog sobre [JavaScript](https://parzibyte.me/blog/category/javascript)
