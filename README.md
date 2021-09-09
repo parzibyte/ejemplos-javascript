@@ -32,6 +32,8 @@ Múltiples ejemplos de JavaScript que no necesitan un repositorio aislado
 
 - Dibujar sobre un canvas usando JavaScript y el mouse | [Tutorial](https://parzibyte.me/blog/2021/09/08/dibujar-canvas-mouse-javascript/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/paint-js/)
 
+- Solicitar firma de usuario con JavaScript y canvas | [Tutorial](https://parzibyte.me/blog/category/javascript/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/firma-js/)
+
 # Más sobre JavaScript
 
 Explora el contenido que tengo en mi blog sobre [JavaScript](https://parzibyte.me/blog/category/javascript)
