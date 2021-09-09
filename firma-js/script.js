@@ -68,7 +68,7 @@ window.obtenerImagen = () => {
 };
 
 $btnGenerarDocumento.onclick = () => {
-    const ventana = window.open("documento.html");
+    window.open("documento.html");
 };
 // Lo demás tiene que ver con pintar sobre el canvas en los eventos del mouse
 $canvas.addEventListener("mousedown", evento => {
