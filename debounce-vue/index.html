@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debounce con Vue - By Parzibyte</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input v-model="busqueda" type="text" @keyup="realizarBusqueda()">
+    </div>
+    <script>
+        const debounce = (callback, wait) => {
+            let timerId;
+            return (...args) => {
+                clearTimeout(timerId);
+                timerId = setTimeout(() => {
+                    callback(...args);
+                }, wait);
+            };
+        };
+        new Vue({
+            el: "#app",
+            data: () => ({
+                busqueda: "",
+            }),
+            mounted() {
+                this.realizarBusqueda = debounce(() => {
+                    console.log("Realizamos la búsqueda!");
+                }, 500);
+            }
+        });
+    </script>
+</body>
+
+</html>
