@@ -34,7 +34,7 @@ Múltiples ejemplos de JavaScript que no necesitan un repositorio aislado
 
 - Solicitar firma de usuario con JavaScript y canvas | [Tutorial](https://parzibyte.me/blog/2021/09/09/solicitar-firma-manuscrita-javascript/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/firma-js/)
 
-- Debounce con Vue.js | [Tutorial](https://parzibyte.me/blog/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/debounce-vue/)
+- Debounce con Vue.js | [Tutorial](https://parzibyte.me/blog/2021/10/01/debounce-con-vue/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/debounce-vue/)
 
 # Más sobre JavaScript
 
