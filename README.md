@@ -36,6 +36,8 @@ Múltiples ejemplos de JavaScript que no necesitan un repositorio aislado
 
 - Debounce con Vue.js | [Tutorial](https://parzibyte.me/blog/2021/10/01/debounce-con-vue/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/debounce-vue/)
 
+- Reducir tamaño de imagen con JavaScript | [Tutorial](https://parzibyte.me/blog/2022/01/22/reducir-tamano-imagen-javascript/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/reducir-tamaño-imagen/)
+
 # Más sobre JavaScript
 
 Explora el contenido que tengo en mi blog sobre [JavaScript](https://parzibyte.me/blog/category/javascript)
