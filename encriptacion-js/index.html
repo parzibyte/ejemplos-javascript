@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Encriptar y desencriptar información con JavaScript - By Parzibyte</title>
+	<link rel="stylesheet" href="./bulma.min.css">
+	<script type="text/javascript" src="script.js"></script>
+	<style>
+		pre {
+			overflow-x: auto;
+			white-space: pre-wrap
+		}
+	</style>
+</head>
+
+<body>
+	<nav class="navbar is-warning" role="navigation" aria-label="main navigation">
+		<div class="navbar-brand">
+			<a class="navbar-item" href="https://parzibyte.me/blog">
+				<img alt=""
+					src="https://raw.githubusercontent.com/parzibyte/ejemplo-mern/master/src/img/parzibyte_logo.png"
+					style="max-height: 80px" />
+			</a>
+			<button class="navbar-burger is-warning button" aria-label="menu" aria-expanded="false"
+				data-target="navbarBasicExample">
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
+			</button>
+		</div>
+		<div class="navbar-menu">
+			<div class="navbar-start">
+				<strong class="navbar-item">Encriptar y desencriptar con JavaScript</strong>
+			</div>
+			<div class="navbar-end">
+				<div class="navbar-item">
+					<div class="buttons">
+						<a target="_blank" rel="noreferrer" href="https://parzibyte.me/l/fW8zGd"
+							class="button is-primary">
+							<strong>Soporte y ayuda</strong>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<script type="text/javascript">
+		document.addEventListener("DOMContentLoaded", () => {
+			const boton = document.querySelector(".navbar-burger");
+			const menu = document.querySelector(".navbar-menu");
+			boton.onclick = () => {
+				menu.classList.toggle("is-active");
+				boton.classList.toggle("is-active");
+			};
+		});
+	</script>
+	<section class="section">
+		<div class="columns">
+			<div class="column">
+				<h2 class="is-size-2">Encriptar</h2>
+				<div class="field">
+					<label class="label">Contraseña</label>
+					<div class="control">
+						<input id="contraseñaEncriptar" class="input" type="password"
+							placeholder="Escribe la contraseña">
+					</div>
+				</div>
+				<div class="field">
+					<label class="label">Información para encriptar</label>
+					<div class="control">
+						<textarea id="informacionEncriptar" class="textarea"
+							placeholder="Alguna cadena, JSON, etcétera"></textarea>
+					</div>
+				</div>
+				<button class="button is-success" id="botonEncriptar">Encriptar</button>
+				<div class="field">
+					<label class="label">Resultado</label>
+					<div class="control">
+						<textarea readonly id="resultadoEncriptacion" class="textarea"></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="column">
+				<h2 class="is-size-2">Desencriptar</h2>
+				<div class="field">
+					<label class="label">Contraseña</label>
+					<div class="control">
+						<input class="input" id="contraseñaDesencriptar" type="password"
+							placeholder="Escribe la contraseña">
+					</div>
+				</div>
+				<div class="field">
+					<label class="label">Información para desencriptar, en base64</label>
+					<div class="control">
+						<textarea class="textarea" id="informacionDesencriptar"
+							placeholder="La cadena cifrada previamente con este programa"></textarea>
+					</div>
+				</div>
+				<button class="button is-success" id="botonDesencriptar">Desencriptar</button>
+				<div class="field">
+					<label class="label">Resultado</label>
+					<div class="control">
+						<textarea readonly id="resultadoDesencriptacion" class="textarea"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<footer class="footer">
+		<div class="content has-text-centered">
+			<p>
+				<strong>Cifrar y descifrar información con JavaScript</strong> usando la Web Crypto API | By <a
+					href="https://parzibyte.me/blog">Parzibyte</a>
+			</p>
+		</div>
+	</footer>
+</body>
+
+</html>
