@@ -38,6 +38,8 @@ Múltiples ejemplos de JavaScript que no necesitan un repositorio aislado
 
 - Reducir tamaño de imagen con JavaScript | [Tutorial](https://parzibyte.me/blog/2022/01/22/reducir-tamano-imagen-javascript/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/reducir-tamaño-imagen/)
 
+- Encriptar y desencriptar información con JS y la Web Crypto API usando AES| [Tutorial](https://parzibyte.me/blog/2022/02/14/encriptacion-javascript-lado-cliente-usando-web-crypto-api/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/encriptacion-js/)
+
 # Más sobre JavaScript
 
 Explora el contenido que tengo en mi blog sobre [JavaScript](https://parzibyte.me/blog/category/javascript)
