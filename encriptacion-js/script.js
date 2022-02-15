@@ -36,8 +36,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 	}
 	const encriptar = async (contraseña, textoPlano) => {
 		const encoder = new TextEncoder();
-		const sal = window.crypto.getRandomValues(new Uint8Array(16));
-		const vectorInicializacion = window.crypto.getRandomValues(new Uint8Array(16));
+		const sal = window.crypto.getRandomValues(new Uint8Array(LONGITUD_SAL));
+		const vectorInicializacion = window.crypto.getRandomValues(new Uint8Array(LONGITUD_VECTOR_INICIALIZACION));
 		const bufferTextoPlano = encoder.encode(textoPlano);
 		const clave = await derivacionDeClaveBasadaEnContraseña(contraseña, sal, 100000, 256, 'SHA-256');
 		const encrypted = await window.crypto.subtle.encrypt(
