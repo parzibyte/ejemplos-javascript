@@ -40,6 +40,9 @@ Múltiples ejemplos de JavaScript que no necesitan un repositorio aislado
 
 - Encriptar y desencriptar información con JS y la Web Crypto API usando AES| [Tutorial](https://parzibyte.me/blog/2022/02/14/encriptacion-javascript-lado-cliente-usando-web-crypto-api/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/encriptacion-js/)
 
+
+- Rotar una imagen con JavaScript y Canvas | [Tutorial](https://parzibyte.me/blog/2023/03/06/rotar-imagen-navegador-web-javascript-canvas/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/rotar-imagen/)
+
 # Más sobre JavaScript
 
 Explora el contenido que tengo en mi blog sobre [JavaScript](https://parzibyte.me/blog/category/javascript)
