@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotar imagen - https://parzibyte.me</title>
+</head>
+
+<body>
+    <button id="rotarDerecha">Derecha</button>
+    <button id="rotarIzquierda">Izquierda</button>
+    <button id="enviar">Enviar</button>
+    <canvas id="canvas"></canvas>
+</body>
+<script>
+    const $canvas = document.querySelector("#canvas");
+    const $btnRotarDerecha = document.querySelector("#rotarDerecha");
+    const $btnRotarIzquierda = document.querySelector("#rotarIzquierda");
+    const $btnEnviar = document.querySelector("#enviar");
+    const context = $canvas.getContext("2d");
+
+
+
+    const enviar = async () => {
+        const data = $canvas.toDataURL("image/png");
+        const fd = new FormData();
+        fd.append("imagen", data);
+        const respuestaHttp = await fetch("http://localhost/recibir.php", {
+            method: "POST",
+            body: fd,
+        });
+        const nombreImagenSubida = await respuestaHttp.json();
+        console.log({ nombreImagenSubida });
+    }
+
+
+
+    // https://parzibyte.me/blog
+    let grados = 0;
+    const imagen = new Image();
+    imagen.src = "./captura_codigo.png";
+    imagen.crossOrigin = "anonymous";
+    imagen.onload = () => {
+        let medidaMayor = imagen.width;
+        if (imagen.height > medidaMayor) {
+            medidaMayor = imagen.height;
+        }
+        $canvas.width = medidaMayor;
+        $canvas.height = medidaMayor;
+        context.drawImage(imagen, 0, 0);
+    };
+    $btnRotarDerecha.addEventListener("click", () => {
+        grados += 90;
+        dibujarSegunGrados(grados);
+    });
+
+    $btnRotarIzquierda.addEventListener("click", () => {
+        grados -= 90;
+        dibujarSegunGrados(grados);
+    });
+    $btnEnviar.addEventListener("click", async () => {
+        await enviar();
+    });
+
+    const dibujarSegunGrados = (grados) => {
+        context.clearRect(0, 0, $canvas.width, $canvas.height);
+        context.save();
+        context.translate($canvas.width / 2, $canvas.height / 2);
+        context.rotate(grados * Math.PI / 180);
+        context.drawImage(imagen, -imagen.width / 2, -imagen.width / 2);
+        context.restore();
+    };
+
+
+</script>
+
+</html>
