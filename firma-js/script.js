@@ -70,7 +70,7 @@ window.obtenerImagen = () => {
 $btnGenerarDocumento.onclick = () => {
     window.open("documento.html");
 };
-const onClicIniciado = evento => {
+const onClicOToqueIniciado = evento => {
     // En este evento solo se ha iniciado el clic, así que dibujamos un punto
     xAnterior = xActual;
     yAnterior = yActual;
@@ -84,7 +84,7 @@ const onClicIniciado = evento => {
     haComenzadoDibujo = true;
 }
 
-const onPunteroMovido = evento => {
+const onMouseODedoMovido = evento => {
     if (!haComenzadoDibujo) {
         return;
     }
@@ -105,17 +105,18 @@ const onPunteroMovido = evento => {
     contexto.stroke();
     contexto.closePath();
 }
+const onMouseODedoLevantado = () => {
+    haComenzadoDibujo = false;
+};
+
 // Lo demás tiene que ver con pintar sobre el canvas en los eventos del mouse
 ["mousedown", "touchstart"].forEach(nombreDeEvento => {
-    $canvas.addEventListener(nombreDeEvento, onClicIniciado);
+    $canvas.addEventListener(nombreDeEvento, onClicOToqueIniciado);
 });
-
 
 ["mousemove", "touchmove"].forEach(nombreDeEvento => {
-    $canvas.addEventListener(nombreDeEvento, onPunteroMovido);
+    $canvas.addEventListener(nombreDeEvento, onMouseODedoMovido);
 });
-["mouseup", "mouseout", "touchend"].forEach(nombreDeEvento => {
-    $canvas.addEventListener(nombreDeEvento, () => {
-        haComenzadoDibujo = false;
-    });
+["mouseup", "touchend"].forEach(nombreDeEvento => {
+    $canvas.addEventListener(nombreDeEvento, onMouseODedoLevantado);
 });
