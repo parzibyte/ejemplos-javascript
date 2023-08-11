@@ -35,3 +35,6 @@ Hacer una donación vía PayPal: https://paypal.me/LuisCabreraBenito
 #canvas {
     border: 1px solid black;
 }
+html, body {
+  overscroll-behavior: none;
+}
