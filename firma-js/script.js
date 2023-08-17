@@ -85,6 +85,7 @@ const onClicOToqueIniciado = evento => {
 }
 
 const onMouseODedoMovido = evento => {
+    evento.preventDefault(); // Prevenir scroll en móviles
     if (!haComenzadoDibujo) {
         return;
     }
