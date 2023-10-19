@@ -44,7 +44,7 @@ Múltiples ejemplos de JavaScript que no necesitan un repositorio aislado
 - Rotar una imagen con JavaScript y Canvas | [Tutorial](https://parzibyte.me/blog/2023/03/06/rotar-imagen-navegador-web-javascript-canvas/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/rotar-imagen/)
 
 
-- Obtener resolución de imágenes con JavaScript | [Tutorial](https://parzibyte.me/blog/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/resolucion-imagen/)
+- Obtener resolución de imágenes con JavaScript | [Tutorial](https://parzibyte.me/blog/2023/10/19/javascript-obtener-resolucion-imagen/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/resolucion-imagen/)
 
 # Más sobre JavaScript
 
