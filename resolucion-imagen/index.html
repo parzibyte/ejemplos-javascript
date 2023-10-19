@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamaño de imagen con JavaScript</title>
+</head>
+
+<body>
+    <img id="staticImage" src="code.png" alt="Example image" style="max-width: 100%;">
+    <hr>
+    <input type="file" id="fileInput">
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const $staticImage = document.querySelector("#staticImage");
+            $staticImage.onload = () => {
+                console.log("Static image: ");
+                const height = $staticImage.naturalHeight;
+                const width = $staticImage.naturalWidth;
+                console.log({ height, width });
+            };
+
+            const $fileInput = document.querySelector("#fileInput");
+            $fileInput.addEventListener("change", () => {
+                const files = $fileInput.files;
+                if (files.length <= 0) {
+                    return;
+                }
+                const firstFile = files[0];
+                const image = new Image();
+                const objectUrl = URL.createObjectURL(firstFile)
+                image.onload = () => {
+                    const height = image.naturalHeight;
+                    const width = image.naturalWidth;
+                    console.log("Selected image: ");
+                    console.log({ height, width });
+                    URL.revokeObjectURL(objectUrl);
+                }
+                image.src = objectUrl;
+            });
+
+        })
+    </script>
+</body>
+
+</html>
