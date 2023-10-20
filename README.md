@@ -46,7 +46,7 @@ Múltiples ejemplos de JavaScript que no necesitan un repositorio aislado
 
 - Obtener resolución de imágenes con JavaScript | [Tutorial](https://parzibyte.me/blog/2023/10/19/javascript-obtener-resolucion-imagen/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/resolucion-imagen/)
 
-- Convertir archivo a base64 | [Tutorial](https://parzibyte.me/blog/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/archivo-a-base64/)
+- Convertir archivo a base64 | [Tutorial](https://parzibyte.me/blog/2023/10/19/javascript-convertir-archivo-base64/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/archivo-a-base64/)
 
 # Más sobre JavaScript
 
