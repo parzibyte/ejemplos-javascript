@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertir archivo a base64</title>
+</head>
+
+<body>
+    <input type="file" id="fileInput">
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const $fileInput = document.querySelector("#fileInput");
+            const fileToBase64 = async function (file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = async () => {
+                        resolve(reader.result);
+                    };
+                    reader.onerror = error => {
+                        reject(error);
+                    }
+                    reader.readAsDataURL(file);
+                });
+            }
+            $fileInput.addEventListener("change", async () => {
+                const files = $fileInput.files;
+                if (files.length <= 0) {
+                    return;
+                }
+                const firstFile = files[0];
+                const encodedAsBase64 = await fileToBase64(firstFile);
+                console.log(encodedAsBase64);
+            });
+
+        })
+    </script>
+</body>
+
+</html>
