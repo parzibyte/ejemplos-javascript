@@ -48,6 +48,7 @@ Múltiples ejemplos de JavaScript que no necesitan un repositorio aislado
 
 - Convertir archivo a base64 | [Tutorial](https://parzibyte.me/blog/2023/10/19/javascript-convertir-archivo-base64/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/archivo-a-base64/)
 
+- Editor WYSIWYG| [Tutorial](https://parzibyte.me/blog/2024/04/09/editor-wysiwyg-javascript/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/wysiwyg/)
 # Más sobre JavaScript
 
 Explora el contenido que tengo en mi blog sobre [JavaScript](https://parzibyte.me/blog/category/javascript)
