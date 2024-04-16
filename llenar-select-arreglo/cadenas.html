@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Llenar select con arreglo de cadenas</title>
+</head>
+
+<body>
+    <select name="" id="selectNombres"></select>
+    <button id="imprimir">Imprimir opción seleccionada en la consola</button>
+    <script>
+        const $select = document.querySelector("#selectNombres"),
+            $imprimir = document.querySelector("#imprimir");
+        const nombres = ["Parzibyte", "Terry", "Byleth", "Leon", "Shovel Knight"];
+        for (const nombre of nombres) {
+            const opcion = Object.assign(document.createElement("option"), {
+                value: nombre,
+                text: nombre,
+            });
+            $select.appendChild(opcion);
+        }
+        $imprimir.addEventListener("click", () => {
+            const indice = $select.selectedIndex;
+            if (indice === -1) return; // Esto es cuando no hay elementos
+            const opcionSeleccionada = $select.options[indice];
+            console.log(`Texto: ${opcionSeleccionada.text}. Valor: ${opcionSeleccionada.value}`);
+        });
+    </script>
+</body>
+
+</html>

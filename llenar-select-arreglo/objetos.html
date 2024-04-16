@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Llenar select con arreglo de objetos</title>
+</head>
+
+<body>
+    <select name="" id="selectMascotas"></select>
+    <button id="imprimir">Imprimir opción seleccionada en la consola</button>
+    <script>
+        const $select = document.querySelector("#selectMascotas"),
+            $imprimir = document.querySelector("#imprimir");
+        const mascotas = [
+            { id: 2, nombre: "Grim", edad: 4 },
+            { id: 3, nombre: "Maggie", edad: 8 },
+            { id: 4, nombre: "Panqué", edad: 5 },
+        ];
+        for (const mascota of mascotas) {
+            const opcion = Object.assign(document.createElement("option"), {
+                value: mascota.id,
+                text: mascota.nombre,
+            });
+            $select.appendChild(opcion);
+        }
+        $imprimir.addEventListener("click", () => {
+            const indice = $select.selectedIndex;
+            if (indice === -1) return; // Esto es cuando no hay elementos
+            const opcionSeleccionada = $select.options[indice];
+            console.log(`Texto: ${opcionSeleccionada.text}. Valor: ${opcionSeleccionada.value}`);
+        });
+
+    </script>
+</body>
+
+</html>
