@@ -52,6 +52,10 @@ Múltiples ejemplos de JavaScript que no necesitan un repositorio aislado
 
 
 - Llenar select con JavaScript | [Tutorial](https://parzibyte.me/blog/2024/04/16/javascript-llenar-select-arreglo/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/llenar-select-arreglo/)
+
+- Leer pixeles de imagen (RGBA) | [Tutorial](https://parzibyte.me/blog/2024/04/23/javascript-lado-cliente-leer-pixeles-imagen/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/pixeles-imagen/)
+
+
 # Más sobre JavaScript
 
 Explora el contenido que tengo en mi blog sobre [JavaScript](https://parzibyte.me/blog/category/javascript)
