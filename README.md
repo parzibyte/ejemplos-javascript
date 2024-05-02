@@ -55,6 +55,9 @@ Múltiples ejemplos de JavaScript que no necesitan un repositorio aislado
 
 - Leer pixeles de imagen (RGBA) | [Tutorial](https://parzibyte.me/blog/2024/04/23/javascript-lado-cliente-leer-pixeles-imagen/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/pixeles-imagen/)
 
+- Consumir API de bots de Telegram | [Tutorial](https://parzibyte.me/blog/2024/05/01/enviar-mensaje-bot-telegram-usando-javascript-lado-cliente/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/enviar-mensaje-telegram/)
+
+
 
 # Más sobre JavaScript
 
