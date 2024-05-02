@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar mensaje en nombre de Bot de Telegram</title>
+</head>
+
+<body>
+    <input type="text" id="token" placeholder="Token">
+    <br><br>
+    <input type="text" id="idChat" placeholder="Id de usuario">
+    <br><br>
+    <textarea placeholder="Mensaje" id="mensaje" cols="30" rows="10"></textarea>
+    <br><br>
+    <button id="enviar">Enviar</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const $token = document.querySelector("#token"),
+                $idChat = document.querySelector("#idChat"),
+                $mensaje = document.querySelector("#mensaje"),
+                $enviar = document.querySelector("#enviar");
+
+            const enviarMensaje = async (idChat, token, mensaje) => {
+                const url = `https://api.telegram.org/bot${token}/sendMessage`;
+                const respuestaHttp = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: idChat,
+                        text: mensaje,
+                    }),
+                });
+                return {
+                    respuesta: await respuestaHttp.json(),
+                    codigo: respuestaHttp.status,
+                };
+            }
+            $enviar.addEventListener("click", async () => {
+                const token = $token.value,
+                    mensaje = $mensaje.value,
+                    idChat = $idChat.value;
+                if (!token || !mensaje || !idChat) {
+                    return alert("Rellena todos los campos");
+                }
+                const respuesta = await enviarMensaje(idChat, token, mensaje);
+                alert(JSON.stringify(respuesta));
+            });
+        });
+    </script>
+</body>
+
+</html>
