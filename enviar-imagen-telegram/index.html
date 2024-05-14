@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar imagen en nombre de Bot de Telegram</title>
+</head>
+
+<body>
+    <h1>Enviar imagen a Telegram desde JavaScript</h1>
+    <input type="text" id="token" value="" placeholder="Token">
+    <br><br>
+    <input value="" type="text" id="idChat" placeholder="Id de usuario">
+    <br><br>
+    <input type="file" id="imagen">
+    <br><br>
+    <button id="enviar">Enviar</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const $token = document.querySelector("#token"),
+                $idChat = document.querySelector("#idChat"),
+                $imagen = document.querySelector("#imagen"),
+                $enviar = document.querySelector("#enviar");
+
+            const enviarImagen = async (idChat, token, imagen) => {
+                const url = `https://api.telegram.org/bot${token}/sendPhoto`;
+                const fd = new FormData();
+                fd.append("chat_id", idChat)
+                fd.append("caption", "Enviado desde JS lado del cliente")
+                fd.append("photo", imagen);
+                const respuestaHttp = await fetch(url, {
+                    method: 'POST',
+                    body: fd,
+                });
+                return {
+                    respuesta: await respuestaHttp.json(),
+                    codigo: respuestaHttp.status,
+                };
+            }
+            $enviar.addEventListener("click", async () => {
+                const token = $token.value,
+                    imagenes = $imagen.files,
+                    idChat = $idChat.value;
+                if (!token || imagenes.length <= 0 || !idChat) {
+                    return alert("Rellena todos los campos");
+                }
+                const imagen = imagenes[0];
+                const respuesta = await enviarImagen(idChat, token, imagen);
+                alert(JSON.stringify(respuesta));
+            });
+        });
+    </script>
+</body>
+
+</html>
