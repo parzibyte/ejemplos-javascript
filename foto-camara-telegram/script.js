@@ -10,11 +10,12 @@ const _getUserMedia = (...arguments) =>
     (navigator.getUserMedia || (navigator.mozGetUserMedia || navigator.mediaDevices.getUserMedia) || navigator.webkitGetUserMedia || navigator.msGetUserMedia).apply(navigator, arguments);
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
-
+let yaEstaEnviandoFotos = false;
+const TIEMPO_ESPERA_ENTRE_FOTOS_EN_MILISEGUNDOS = 2000;
 const tomarFotoPeriodicamente = async () => {
     while (true) {
         await tomarFoto();
-        await sleep(5000);
+        await sleep(TIEMPO_ESPERA_ENTRE_FOTOS_EN_MILISEGUNDOS);
     }
 }
 const $video = document.querySelector("#video"),
@@ -135,9 +136,11 @@ const tomarFoto = async () => {
                 await $video.play();
                 canvasFueraDePantalla = new OffscreenCanvas($video.videoWidth, $video.videoHeight);
                 contextoCanvas = canvasFueraDePantalla.getContext("2d");
-
-                //Escuchar el click del botón para tomar la foto
-                tomarFotoPeriodicamente();
+                // Prevenir enviar dos fotos cuando se cambia el dispositivo
+                if (!yaEstaEnviandoFotos) {
+                    tomarFotoPeriodicamente();
+                    yaEstaEnviandoFotos = true;
+                }
             }, (error) => {
                 console.log("Permiso denegado o error: ", error);
                 $estado.innerHTML = "No se puede acceder a la cámara, o no diste permiso.";
