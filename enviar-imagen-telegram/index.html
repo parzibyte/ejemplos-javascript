@@ -11,7 +11,7 @@
     <h1>Enviar imagen a Telegram desde JavaScript</h1>
     <input type="text" id="token" value="" placeholder="Token">
     <br><br>
-    <input value="" type="text" id="idChat" placeholder="Id de usuario">
+    <input value="" type="text" id="idChat" placeholder="Id de chat">
     <br><br>
     <input type="file" id="imagen">
     <br><br>
@@ -27,8 +27,8 @@
             const enviarImagen = async (idChat, token, imagen) => {
                 const url = `https://api.telegram.org/bot${token}/sendPhoto`;
                 const fd = new FormData();
-                fd.append("chat_id", idChat)
-                fd.append("caption", "Enviado desde JS lado del cliente")
+                fd.append("chat_id", idChat);
+                fd.append("caption", "Enviado desde JS lado del cliente");
                 fd.append("photo", imagen);
                 const respuestaHttp = await fetch(url, {
                     method: 'POST',
