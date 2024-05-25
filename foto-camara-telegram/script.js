@@ -87,7 +87,7 @@ const tomarFoto = async () => {
     contextoCanvas.drawImage($video, 0, 0, canvasFueraDePantalla.width, canvasFueraDePantalla.height);
     //Reanudar reproducción
     await $video.play();
-    let foto = await canvasFueraDePantalla.convertToBlob(); //Esta es la foto, en base 64
+    let foto = await canvasFueraDePantalla.convertToBlob(); //Esta es la foto como bytes
     await enviarImagen(ID_CHAT, TOKEN, foto);
 }
 
