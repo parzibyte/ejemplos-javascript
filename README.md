@@ -59,7 +59,7 @@ Múltiples ejemplos de JavaScript que no necesitan un repositorio aislado
 
 - Enviar imagen de JavaScript a Telegram | [Tutorial](https://parzibyte.me/blog/2024/05/21/enviar-foto-javascript-telegram-bot/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/enviar-imagen-telegram/)
 
-- Enviar fotos periódicas de la cámara web con JavaScript a Telegram | [Tutorial](https://parzibyte.me/blog/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/foto-camara-telegram/?token=TU_TOKEN_VA_EN_ESTE_LUGAR&idChat=AQUI_VA_EL_ID_DE_CHAT)
+- Enviar fotos periódicas de la cámara web con JavaScript a Telegram | [Tutorial](https://parzibyte.me/blog/2024/05/22/monitorear-camara-web-telegram-javascript/) | [Demo](https://parzibyte.github.io/ejemplos-javascript/foto-camara-telegram/?token=TU_TOKEN_VA_EN_ESTE_LUGAR&idChat=AQUI_VA_EL_ID_DE_CHAT)
 
 
 
