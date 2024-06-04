@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOM detector</title>
+</head>
+
+<body>
+    <input type="file" id="archivo">
+    <div id="resultado"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const marcas = {
+                "UTF-8": new Uint8Array([0xef, 0xbb, 0xbf]),
+                "UTF-16 BE": new Uint8Array([0xfe, 0xff]),
+                "UTF-16 (LE)": new Uint8Array([0xff, 0xfe]),
+                "UTF-32 (BE)": new Uint8Array([0x00, 0x00, 0xfe, 0xff]),
+                "UTF-32 (LE)": new Uint8Array([0xff, 0xfe, 0x00, 0x00]),
+                "UTF-7": new Uint8Array([0x2b, 0x2f, 0x76]),
+                "UTF-1": new Uint8Array([0xf7, 0x64, 0x4c]),
+                "UTF-EBCDIC": new Uint8Array([0xDD, 0x73, 0x66, 0x73,]),
+                "SCSU": new Uint8Array([0x0E, 0xFE, 0xFF,]),
+                "BOCU-1": new Uint8Array([0xFB, 0xEE, 0x28,]),
+                "GB18030": new Uint8Array([0x84, 0x31, 0x95, 0x33,]),
+            };
+
+            const coinciden = (primero, segundo) => {
+                if (primero.length != segundo.length) {
+                    return false;
+                }
+                for (let indice = 0; indice < primero.length; indice++) {
+                    const byteActualDelPrimero = primero[indice];
+                    const byteActualDelSegundo = segundo[indice];
+                    if (byteActualDelPrimero != byteActualDelSegundo) {
+                        return false;
+                    }
+                    indice++;
+                }
+                return true;
+            }
+
+            function uint8AHexadecimal(buffer) {
+                return Array.prototype.map.call(buffer, numero => numero.toString(16).toUpperCase());
+            }
+
+            const $archivo = document.querySelector("#archivo");
+            const $resultado = document.querySelector("#resultado");
+            $archivo.addEventListener("change", () => {
+                $resultado.innerHTML = "";
+                const files = $archivo.files;
+                if (files.length <= 0) {
+                    return;
+                }
+                const primerArchivo = files[0];
+                const fd = new FileReader();
+                fd.onload = (evento) => {
+                    const coincidencias = [];
+                    const resultado = evento.target.result;
+                    const primerosCuatroBytes = resultado.slice(0, 4);
+                    for (const [codificacion, bytes] of Object.entries(marcas)) {
+                        if (coinciden(bytes, new Uint8Array(resultado.slice(0, bytes.length)))) {
+                            coincidencias.push({
+                                codificacion, bytes
+                            })
+                        }
+                    }
+                    if (coincidencias.length <= 0) {
+                        $resultado.innerHTML = `No se encontró ningún caracter BOM`;
+                        return;
+                    }
+                    $resultado.innerHTML = `Se encontraron las siguientes coincidencias: <ul>`;
+                    for (const coincidencia of coincidencias) {
+                        $resultado.innerHTML += `<li><strong>${coincidencia.codificacion}: </strong> ${uint8AHexadecimal(coincidencia.bytes)}</li>`;
+                    }
+                    $resultado.innerHTML += `</ul>`;
+                }
+                fd.readAsArrayBuffer(primerArchivo);
+            })
+        });
+    </script>
+</body>
+
+</html>
