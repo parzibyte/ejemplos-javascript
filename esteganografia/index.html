@@ -12,140 +12,154 @@
     <button id="ocultar">Ocultar</button>
     <button id="leer">Leer</button>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const codigoDelCaracterDeTerminacion = 4;
-            const $imagen = document.querySelector("#imagen");
-            const $ocultar = document.querySelector("#ocultar");
-            const $leer = document.querySelector("#leer");
+        let canvasFueraDePantalla = null;
+        let contextoCanvas = null;
+        const CODIGO_CARACTER_TERMINACION = 4;
+        const $imagen = document.querySelector("#imagen");
+        const $ocultar = document.querySelector("#ocultar");
+        const $leer = document.querySelector("#leer");
 
-            /*
-            0 es el LSB y 7 el MSB
-            */
-            const establecerBitEnNumero = (numero, indiceBit, bit) => {
-                if (bit === 1) {
-                    numero |= (1 << indiceBit);
-                } else {
-                    numero &= ~(1 << indiceBit);
+        /*
+        0 es el LSB y 7 el MSB
+        */
+        const establecerBitEnNumero = (numero, indiceBit, bit) => {
+            if (bit === 1) {
+                numero |= (1 << indiceBit);
+            } else {
+                numero &= ~(1 << indiceBit);
+            }
+            return numero;
+        }
+
+        const colocarLsbDeNumero = (numero, bit) => {
+            // Solo lo he probado con números entre 0 y 255
+            if (bit === 1) {
+                return numero | 1;
+            } else {
+                return numero & 254;
+            }
+        }
+
+        const obtenerLsb = (numero) => {
+            return numero & 1;
+        }
+
+        const obtenerBitsDeMensaje = (mensaje) => {
+            const bits = [];
+            for (let indiceByte = 0; indiceByte < mensaje.length; indiceByte++) {
+                // Obtener entero ASCII de la letra (byte) actual...
+                const charCode = mensaje.charCodeAt(indiceByte);
+                // Recorrer cada bit
+                for (let indiceBit = 7; indiceBit >= 0; indiceBit--) {
+                    const bit = (charCode >> indiceBit) & 1;
+                    //console.log(`Charcode ${charCode} con índice bit ${indiceBit} y bit valor ${bit}`);
+                    bits.push(bit);
                 }
-                return numero;
             }
+            return bits;
+        }
 
-            const colocarLsbDeNumero = (numero, bit) => {
-                // Solo lo he probado con números entre 0 y 255
-                if (bit === 1) {
-                    return numero | 1;
-                } else {
-                    return numero & 254;
+
+        const dibujarImagenEnCanvasGlobal = async (imagen) => {
+            const imagenComoBitmap = await createImageBitmap(imagen);
+            canvasFueraDePantalla = new OffscreenCanvas(imagenComoBitmap.width, imagenComoBitmap.height);
+            contextoCanvas = canvasFueraDePantalla.getContext("2d");
+            contextoCanvas.drawImage(imagenComoBitmap, 0, 0, imagenComoBitmap.width, imagenComoBitmap.height);
+        }
+
+        const obtenerImageData = () => {
+            return contextoCanvas.getImageData(0, 0, canvasFueraDePantalla.width, canvasFueraDePantalla.height);
+        }
+
+        const colocarImageData = (datosDeImagen) => {
+            contextoCanvas.putImageData(datosDeImagen, 0, 0);
+        }
+
+        const descargarCanvas = async () => {
+            let fotoComoBlob = await canvasFueraDePantalla.convertToBlob();
+            const a = document.createElement("a");
+            const archivo = new Blob([fotoComoBlob], { type: 'image/png' });
+            const url = URL.createObjectURL(archivo);
+            a.href = url;
+            a.download = "imagen.png";
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        const leer = async () => {
+            const imagenes = $imagen.files;
+            if (imagenes.length <= 0) {
+                return;
+            }
+            const primerArchivoDeImagen = imagenes[0];
+            await dibujarImagenEnCanvasGlobal(primerArchivoDeImagen);
+            const datosDeImagen = obtenerImageData();
+            const pixeles = datosDeImagen.data;
+            let mensaje = "";
+            let codigoDelCaracterActual = 0;
+            let indiceBitEnCaracterActual = 7;
+            for (let indice = 0; indice < pixeles.length; indice++) {
+                // Omitir canal alfa por ahora
+                // Por ejemplo 3, 7, 11 son el alfa. Si le sumamos 1 son
+                // 4,8,12 que ya se puede comparar para saber si es múltiplo
+                // de 4
+                console.log({ indice });
+                if ((indice + 1) % 4 === 0) {
+                    continue;
                 }
-            }
-
-            const obtenerLsb = (numero) => {
-                return numero & 1;
-            }
-
-            const obtenerBitsDeMensaje = (mensaje) => {
-                const bits = [];
-                for (let indiceByte = 0; indiceByte < mensaje.length; indiceByte++) {
-                    // Obtener entero ASCII de la letra (byte) actual...
-                    const charCode = mensaje.charCodeAt(indiceByte);
-                    // Recorrer cada bit
-                    for (let indiceBit = 7; indiceBit >= 0; indiceBit--) {
-                        const bit = (charCode >> indiceBit) & 1;
-                        //console.log(`Charcode ${charCode} con índice bit ${indiceBit} y bit valor ${bit}`);
-                        bits.push(bit);
+                const lsbDelNivelDelColor = obtenerLsb(pixeles[indice]);
+                codigoDelCaracterActual = establecerBitEnNumero(codigoDelCaracterActual, indiceBitEnCaracterActual, lsbDelNivelDelColor);
+                console.log(`Agregando LSB ${lsbDelNivelDelColor} del nivel ${pixeles[indice]} al número que hasta ahora es ${codigoDelCaracterActual} en el índice ${indiceBitEnCaracterActual}`);
+                if (indiceBitEnCaracterActual === 0) {
+                    if (codigoDelCaracterActual === CODIGO_CARACTER_TERMINACION) {
+                        break;
                     }
+                    const letra = String.fromCodePoint(codigoDelCaracterActual);
+                    console.log(`Agregando número ${codigoDelCaracterActual} que es ${letra}`);
+                    mensaje += letra;
+                    codigoDelCaracterActual = 0;
+                    indiceBitEnCaracterActual = 8;
                 }
-                return bits;
+                indiceBitEnCaracterActual--;
             }
+            console.log({ mensaje });
+            return mensaje;
+        }
 
-            const leer = async () => {
-                const imagenes = $imagen.files;
-                if (imagenes.length <= 0) {
-                    return;
-                }
-                const primerArchivoDeImagen = imagenes[0];
-                const imagenComoBitmap = await createImageBitmap(primerArchivoDeImagen);
-                const canvasFueraDePantalla = new OffscreenCanvas(imagenComoBitmap.width, imagenComoBitmap.height);
-                const contexto = canvasFueraDePantalla.getContext("2d");
-                contexto.drawImage(imagenComoBitmap, 0, 0, imagenComoBitmap.width, imagenComoBitmap.height);
-                const datosDeImagen = contexto.getImageData(0, 0, imagenComoBitmap.width, imagenComoBitmap.height);
-                const pixeles = datosDeImagen.data;
-                let mensaje = "";
-                let byte = "";
-                let conteo = 0;
-                let numero = 0;
-                let indiceBitEnByte = 7;
-                for (let indice = 0; indice < pixeles.length; indice++) {
-                    // Omitir canal alfa por ahora
-                    // Por ejemplo 3, 7, 11 son el alfa. Si le sumamos 1 son
-                    // 4,8,12 que ya se puede comparar para saber si es múltiplo
-                    // de 4
-                    console.log({ indice });
-                    if ((indice + 1) % 4 === 0) {
-                        continue;
-                    }
-                    const lsbDelNivelDelColor = obtenerLsb(pixeles[indice]);
-                    console.log({ lsbDelNivelDelColor });
-                    //byte += String(lsbDelNivelDelColor);
-                    numero = establecerBitEnNumero(numero, indiceBitEnByte, lsbDelNivelDelColor);
-                    console.log(`Agregando LSB ${lsbDelNivelDelColor} del nivel ${pixeles[indice]} al número que hasta ahora es ${numero} en el índice ${indiceBitEnByte}`);
-                    if (indiceBitEnByte === 0) {
-                        if (numero === codigoDelCaracterDeTerminacion) {
-                            break;
-                        }
-                        const caracter = String.fromCodePoint(numero);
-                        console.log(`Agregando número ${numero} que es ${caracter}`);
-                        mensaje += caracter;
-                        numero = 0;
-                        indiceBitEnByte = 8;
-                    }
-                    indiceBitEnByte--;
-                }
-                console.log({ mensaje });
+        const bitsMensajeTerminacion = obtenerBitsDeMensaje(String.fromCharCode(CODIGO_CARACTER_TERMINACION));
+        const ocultar = async () => {
+            const imagenes = $imagen.files;
+            if (imagenes.length <= 0) {
+                return;
             }
-            const ocultar = async () => {
-                const imagenes = $imagen.files;
-                if (imagenes.length <= 0) {
-                    return;
-                }
-                const primerArchivoDeImagen = imagenes[0];
-                const imagenComoBitmap = await createImageBitmap(primerArchivoDeImagen);
-                const canvasFueraDePantalla = new OffscreenCanvas(imagenComoBitmap.width, imagenComoBitmap.height);
-                const contexto = canvasFueraDePantalla.getContext("2d");
-                contexto.drawImage(imagenComoBitmap, 0, 0, imagenComoBitmap.width, imagenComoBitmap.height);
-                const datosDeImagen = contexto.getImageData(0, 0, imagenComoBitmap.width, imagenComoBitmap.height);
-                const pixeles = datosDeImagen.data;
-                const bitsMensajeTerminacion = obtenerBitsDeMensaje(String.fromCharCode(codigoDelCaracterDeTerminacion));
-                const bitsMensaje = obtenerBitsDeMensaje("Hola").concat(bitsMensajeTerminacion);
-                let indicePixel = 0;
-                for (let indiceBit = 0; indiceBit < bitsMensaje.length; indiceBit++) {
+            const primerArchivoDeImagen = imagenes[0];
+            await dibujarImagenEnCanvasGlobal(primerArchivoDeImagen);
 
-                    const bitDelMensaje = bitsMensaje[indiceBit];
-                    console.log(`Ocultando ${bitDelMensaje} en el nivel con valor ${pixeles[indicePixel]} (posición ${indicePixel}) que será convertido a ${colocarLsbDeNumero(pixeles[indicePixel], bitDelMensaje)}`)
-                    pixeles[indicePixel] = colocarLsbDeNumero(pixeles[indicePixel], bitDelMensaje);
+            const datosDeImagen = obtenerImageData();
+            const pixeles = datosDeImagen.data;
+            const bitsMensaje = obtenerBitsDeMensaje("Hola").concat(bitsMensajeTerminacion);
+            let indicePixel = 0;
+            for (let indiceBit = 0; indiceBit < bitsMensaje.length; indiceBit++) {
+                const bitDelMensaje = bitsMensaje[indiceBit];
+                console.log(`Ocultando ${bitDelMensaje} en el nivel con valor ${pixeles[indicePixel]} (posición ${indicePixel}) que será convertido a ${colocarLsbDeNumero(pixeles[indicePixel], bitDelMensaje)}`)
+                pixeles[indicePixel] = colocarLsbDeNumero(pixeles[indicePixel], bitDelMensaje);
+                indicePixel++;
+                // Omitir canal alfa por ahora
+                // Por ejemplo 3, 7, 11 son el alfa. Si le sumamos 1 son
+                // 4,8,12 que ya se puede comparar para saber si es múltiplo
+                // de 4
+                if ((indicePixel + 1) % 4 === 0) {
                     indicePixel++;
-                    // Omitir canal alfa por ahora
-                    // Por ejemplo 3, 7, 11 son el alfa. Si le sumamos 1 son
-                    // 4,8,12 que ya se puede comparar para saber si es múltiplo
-                    // de 4
-                    if ((indicePixel + 1) % 4 === 0) {
-                        indicePixel++;
-                    }
                 }
-                contexto.putImageData(datosDeImagen, 0, 0);
-                let foto = await canvasFueraDePantalla.convertToBlob();
-                const a = document.createElement("a");
-                const archivo = new Blob([foto], { type: 'image/png' });
-                const url = URL.createObjectURL(archivo);
-                a.href = url;
-                a.download = "imagen.png";
-                a.click();
-                URL.revokeObjectURL(url);
             }
+            colocarImageData(datosDeImagen);
+            await descargarCanvas();
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+
             $ocultar.addEventListener("click", ocultar);
             $leer.addEventListener("click", leer);
-            //$imagen.addEventListener("change", ocultar);
-
         })
     </script>
 </body>
