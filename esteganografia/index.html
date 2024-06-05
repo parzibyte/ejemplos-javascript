@@ -154,19 +154,19 @@
                 // Por ejemplo 3, 7, 11 son el alfa. Si le sumamos 1 son
                 // 4,8,12 que ya se puede comparar para saber si es múltiplo
                 // de 4
-                console.log({ indice });
+                //console.log({ indice });
                 if ((indice + 1) % 4 === 0) {
                     continue;
                 }
                 const lsbDelNivelDelColor = obtenerLsb(pixeles[indice]);
                 codigoDelCaracterActual = establecerBitEnNumero(codigoDelCaracterActual, indiceBitEnCaracterActual, lsbDelNivelDelColor);
-                console.log(`Agregando LSB ${lsbDelNivelDelColor} del nivel ${pixeles[indice]} al número que hasta ahora es ${codigoDelCaracterActual} en el índice ${indiceBitEnCaracterActual}`);
+                //console.log(`Agregando LSB ${lsbDelNivelDelColor} del nivel ${pixeles[indice]} al número que hasta ahora es ${codigoDelCaracterActual} en el índice ${indiceBitEnCaracterActual}`);
                 if (indiceBitEnCaracterActual === 0) {
                     if (codigoDelCaracterActual === CODIGO_CARACTER_TERMINACION) {
                         break;
                     }
                     const letra = String.fromCodePoint(codigoDelCaracterActual);
-                    console.log(`Agregando número ${codigoDelCaracterActual} que es ${letra}`);
+                    //console.log(`Agregando número ${codigoDelCaracterActual} que es ${letra}`);
                     mensaje += letra;
                     codigoDelCaracterActual = 0;
                     indiceBitEnCaracterActual = 8;
@@ -183,7 +183,7 @@
                 return;
             }
             const mensaje = $mensaje.value;
-            if(!mensaje){
+            if (!mensaje) {
                 return alert("Escribe un mensaje");
             }
             const primerArchivoDeImagen = imagenes[0];
@@ -195,7 +195,7 @@
             let indicePixel = 0;
             for (let indiceBit = 0; indiceBit < bitsMensaje.length; indiceBit++) {
                 const bitDelMensaje = bitsMensaje[indiceBit];
-                console.log(`Ocultando ${bitDelMensaje} en el nivel con valor ${pixeles[indicePixel]} (posición ${indicePixel}) que será convertido a ${colocarLsbDeNumero(pixeles[indicePixel], bitDelMensaje)}`)
+                //console.log(`Ocultando ${bitDelMensaje} en el nivel con valor ${pixeles[indicePixel]} (posición ${indicePixel}) que será convertido a ${colocarLsbDeNumero(pixeles[indicePixel], bitDelMensaje)}`)
                 pixeles[indicePixel] = colocarLsbDeNumero(pixeles[indicePixel], bitDelMensaje);
                 indicePixel++;
                 // Omitir canal alfa por ahora
