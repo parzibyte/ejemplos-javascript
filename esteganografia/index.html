@@ -13,10 +13,14 @@
     <button id="leer">Leer</button>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            const codigoDelCaracterDeTerminacion = 4;
             const $imagen = document.querySelector("#imagen");
             const $ocultar = document.querySelector("#ocultar");
             const $leer = document.querySelector("#leer");
 
+            /*
+            0 es el LSB y 7 el MSB
+            */
             const establecerBitEnNumero = (numero, indiceBit, bit) => {
                 if (bit === 1) {
                     numero |= (1 << indiceBit);
@@ -70,6 +74,7 @@
                 let byte = "";
                 let conteo = 0;
                 let numero = 0;
+                let indiceBitEnByte = 7;
                 for (let indice = 0; indice < pixeles.length; indice++) {
                     // Omitir canal alfa por ahora
                     // Por ejemplo 3, 7, 11 son el alfa. Si le sumamos 1 son
@@ -81,15 +86,20 @@
                     }
                     const lsbDelNivelDelColor = obtenerLsb(pixeles[indice]);
                     console.log({ lsbDelNivelDelColor });
-                    byte += String(lsbDelNivelDelColor);
-                    console.log(`Agregando LSB ${lsbDelNivelDelColor} del nivel ${pixeles[indice]} al byte que hasta ahora es ${byte}`);
-                    if (byte.length === 8) {
-                        const caracter = String.fromCodePoint(parseInt(byte, 2));
-                        console.log(`Agregando byte ${byte} que es ${caracter}`);
+                    //byte += String(lsbDelNivelDelColor);
+                    numero = establecerBitEnNumero(numero, indiceBitEnByte, lsbDelNivelDelColor);
+                    console.log(`Agregando LSB ${lsbDelNivelDelColor} del nivel ${pixeles[indice]} al número que hasta ahora es ${numero} en el índice ${indiceBitEnByte}`);
+                    if (indiceBitEnByte === 0) {
+                        if (numero === codigoDelCaracterDeTerminacion) {
+                            break;
+                        }
+                        const caracter = String.fromCodePoint(numero);
+                        console.log(`Agregando número ${numero} que es ${caracter}`);
                         mensaje += caracter;
-                        byte = "";
+                        numero = 0;
+                        indiceBitEnByte = 8;
                     }
-
+                    indiceBitEnByte--;
                 }
                 console.log({ mensaje });
             }
@@ -105,7 +115,8 @@
                 contexto.drawImage(imagenComoBitmap, 0, 0, imagenComoBitmap.width, imagenComoBitmap.height);
                 const datosDeImagen = contexto.getImageData(0, 0, imagenComoBitmap.width, imagenComoBitmap.height);
                 const pixeles = datosDeImagen.data;
-                const bitsMensaje = obtenerBitsDeMensaje("Hola");
+                const bitsMensajeTerminacion = obtenerBitsDeMensaje(String.fromCharCode(codigoDelCaracterDeTerminacion));
+                const bitsMensaje = obtenerBitsDeMensaje("Hola").concat(bitsMensajeTerminacion);
                 let indicePixel = 0;
                 for (let indiceBit = 0; indiceBit < bitsMensaje.length; indiceBit++) {
 
