@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esteganografía JavaScript</title>
+</head>
+
+<body>
+    <input type="file" id="imagen">
+    <button id="ocultar">Ocultar</button>
+    <button id="leer">Leer</button>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const $imagen = document.querySelector("#imagen");
+            const $ocultar = document.querySelector("#ocultar");
+            const $leer = document.querySelector("#leer");
+
+            const establecerBitEnNumero = (numero, indiceBit, bit) => {
+                if (bit === 1) {
+                    numero |= (1 << indiceBit);
+                } else {
+                    numero &= ~(1 << indiceBit);
+                }
+                return numero;
+            }
+
+            const colocarLsbDeNumero = (numero, bit) => {
+                // Solo lo he probado con números entre 0 y 255
+                if (bit === 1) {
+                    return numero | 1;
+                } else {
+                    return numero & 254;
+                }
+            }
+
+            const obtenerLsb = (numero) => {
+                return numero & 1;
+            }
+
+            const obtenerBitsDeMensaje = (mensaje) => {
+                const bits = [];
+                for (let indiceByte = 0; indiceByte < mensaje.length; indiceByte++) {
+                    // Obtener entero ASCII de la letra (byte) actual...
+                    const charCode = mensaje.charCodeAt(indiceByte);
+                    // Recorrer cada bit
+                    for (let indiceBit = 7; indiceBit >= 0; indiceBit--) {
+                        const bit = (charCode >> indiceBit) & 1;
+                        //console.log(`Charcode ${charCode} con índice bit ${indiceBit} y bit valor ${bit}`);
+                        bits.push(bit);
+                    }
+                }
+                return bits;
+            }
+
+            const leer = async () => {
+                const imagenes = $imagen.files;
+                if (imagenes.length <= 0) {
+                    return;
+                }
+                const primerArchivoDeImagen = imagenes[0];
+                const imagenComoBitmap = await createImageBitmap(primerArchivoDeImagen);
+                const canvasFueraDePantalla = new OffscreenCanvas(imagenComoBitmap.width, imagenComoBitmap.height);
+                const contexto = canvasFueraDePantalla.getContext("2d");
+                contexto.drawImage(imagenComoBitmap, 0, 0, imagenComoBitmap.width, imagenComoBitmap.height);
+                const datosDeImagen = contexto.getImageData(0, 0, imagenComoBitmap.width, imagenComoBitmap.height);
+                const pixeles = datosDeImagen.data;
+                let mensaje = "";
+                let byte = "";
+                let conteo = 0;
+                let numero = 0;
+                for (let indice = 0; indice < pixeles.length; indice++) {
+                    // Omitir canal alfa por ahora
+                    // Por ejemplo 3, 7, 11 son el alfa. Si le sumamos 1 son
+                    // 4,8,12 que ya se puede comparar para saber si es múltiplo
+                    // de 4
+                    console.log({ indice });
+                    if ((indice + 1) % 4 === 0) {
+                        continue;
+                    }
+                    const lsbDelNivelDelColor = obtenerLsb(pixeles[indice]);
+                    console.log({ lsbDelNivelDelColor });
+                    byte += String(lsbDelNivelDelColor);
+                    console.log(`Agregando LSB ${lsbDelNivelDelColor} del nivel ${pixeles[indice]} al byte que hasta ahora es ${byte}`);
+                    if (byte.length === 8) {
+                        const caracter = String.fromCodePoint(parseInt(byte, 2));
+                        console.log(`Agregando byte ${byte} que es ${caracter}`);
+                        mensaje += caracter;
+                        byte = "";
+                    }
+
+                }
+                console.log({ mensaje });
+            }
+            const ocultar = async () => {
+                const imagenes = $imagen.files;
+                if (imagenes.length <= 0) {
+                    return;
+                }
+                const primerArchivoDeImagen = imagenes[0];
+                const imagenComoBitmap = await createImageBitmap(primerArchivoDeImagen);
+                const canvasFueraDePantalla = new OffscreenCanvas(imagenComoBitmap.width, imagenComoBitmap.height);
+                const contexto = canvasFueraDePantalla.getContext("2d");
+                contexto.drawImage(imagenComoBitmap, 0, 0, imagenComoBitmap.width, imagenComoBitmap.height);
+                const datosDeImagen = contexto.getImageData(0, 0, imagenComoBitmap.width, imagenComoBitmap.height);
+                const pixeles = datosDeImagen.data;
+                const bitsMensaje = obtenerBitsDeMensaje("Hola");
+                let indicePixel = 0;
+                for (let indiceBit = 0; indiceBit < bitsMensaje.length; indiceBit++) {
+
+                    const bitDelMensaje = bitsMensaje[indiceBit];
+                    console.log(`Ocultando ${bitDelMensaje} en el nivel con valor ${pixeles[indicePixel]} (posición ${indicePixel}) que será convertido a ${colocarLsbDeNumero(pixeles[indicePixel], bitDelMensaje)}`)
+                    pixeles[indicePixel] = colocarLsbDeNumero(pixeles[indicePixel], bitDelMensaje);
+                    indicePixel++;
+                    // Omitir canal alfa por ahora
+                    // Por ejemplo 3, 7, 11 son el alfa. Si le sumamos 1 son
+                    // 4,8,12 que ya se puede comparar para saber si es múltiplo
+                    // de 4
+                    if ((indicePixel + 1) % 4 === 0) {
+                        indicePixel++;
+                    }
+                }
+                contexto.putImageData(datosDeImagen, 0, 0);
+                let foto = await canvasFueraDePantalla.convertToBlob();
+                const a = document.createElement("a");
+                const archivo = new Blob([foto], { type: 'image/png' });
+                const url = URL.createObjectURL(archivo);
+                a.href = url;
+                a.download = "imagen.png";
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+            $ocultar.addEventListener("click", ocultar);
+            $leer.addEventListener("click", leer);
+            //$imagen.addEventListener("change", ocultar);
+
+        })
+    </script>
+</body>
+
+</html>
