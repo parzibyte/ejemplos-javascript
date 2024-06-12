@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <title>Telegram Web App</title>
+</head>
+
+<body>
+    <h1>Elige tus opciones</h1>
+    <label for="food">Comida favorita:</label>
+    <select id="food">
+    </select>
+    <br><br>
+    <label for="song">Canción favorita:</label>
+    <select id="song">
+    </select>
+    <br><br>
+    <button onclick="sendData()">Enviar</button>
+
+    <script>
+        alert(JSON.stringify(window.Telegram.WebApp));
+        // Obtener parámetros de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const foods = urlParams.get('foods').split(',');
+        const songs = urlParams.get('songs').split(',');
+
+        // Inyectar opciones en los select
+        const foodSelect = document.getElementById('food');
+        foods.forEach(food => {
+            let option = document.createElement('option');
+            option.value = food;
+            option.textContent = food;
+            foodSelect.appendChild(option);
+        });
+
+        const songSelect = document.getElementById('song');
+        songs.forEach(song => {
+            let option = document.createElement('option');
+            option.value = song;
+            option.textContent = song;
+            songSelect.appendChild(option);
+        });
+
+        function sendData() {
+            const selectedFood = document.getElementById('food').value;
+            const selectedSong = document.getElementById('song').value;
+
+            // Enviar datos de vuelta al bot
+            Telegram.WebApp.sendData(JSON.stringify({
+                food: selectedFood,
+                song: selectedSong
+            }));
+        }
+    </script>
+</body>
+
+</html>
