@@ -160,18 +160,18 @@ const ocultar = async () => {
     const datosDeImagen = obtenerImageData();
     const pixeles = datosDeImagen.data;
     const bitsMensaje = obtenerBitsDeMensaje(mensaje).concat(bitsMensajeTerminacion);
-    let indicePixel = 0;
+    let indiceDeNivelDeColorDelPixel = 0;
     for (let indiceBit = 0; indiceBit < bitsMensaje.length; indiceBit++) {
         const bitDelMensaje = bitsMensaje[indiceBit];
         //console.log(`Ocultando ${bitDelMensaje} en el nivel con valor ${pixeles[indicePixel]} (posición ${indicePixel}) que será convertido a ${colocarLsbDeNumero(pixeles[indicePixel], bitDelMensaje)}`)
-        pixeles[indicePixel] = colocarLsbDeNumero(pixeles[indicePixel], bitDelMensaje);
-        indicePixel++;
+        pixeles[indiceDeNivelDeColorDelPixel] = colocarLsbDeNumero(pixeles[indiceDeNivelDeColorDelPixel], bitDelMensaje);
+        indiceDeNivelDeColorDelPixel++;
         // Omitir canal alfa por ahora
         // Por ejemplo 3, 7, 11 son el alfa. Si le sumamos 1 son
         // 4,8,12 que ya se puede comparar para saber si es múltiplo
         // de 4
-        if ((indicePixel + 1) % 4 === 0) {
-            indicePixel++;
+        if ((indiceDeNivelDeColorDelPixel + 1) % 4 === 0) {
+            indiceDeNivelDeColorDelPixel++;
         }
     }
     colocarImageData(datosDeImagen);
