@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unir archivos con JavaScript</title>
+</head>
+
+<body>
+    <input type="file" id="archivos" multiple>
+    <script>
+        const leerArchivoComoArrayBuffer = (archivo) => {
+            return new Promise((resolve, reject) => {
+                const lector = new FileReader();
+                lector.onerror = (evento) => {
+                    reject(evento);
+                }
+                lector.onload = (evento) => {
+                    resolve(evento.target.result);
+                }
+                lector.readAsArrayBuffer(archivo);
+            });
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            const $archivos = document.querySelector("#archivos");
+            $archivos.addEventListener("change", async () => {
+                const archivos = $archivos.files;
+                let nombreSugeridoParaArchivoUnido = "";
+                let longitudDeArchivoUnidoEnBytes = 0;
+                for (const archivo of archivos) {
+                    if (nombreSugeridoParaArchivoUnido === "") {
+                        nombreSugeridoParaArchivoUnido = archivo.name.substring(0, archivo.name.lastIndexOf("."));
+                    }
+                    longitudDeArchivoUnidoEnBytes += archivo.size;
+                }
+                const bytesDeArchivoUnido = new Uint8Array(longitudDeArchivoUnidoEnBytes);
+                let compensacion = 0;
+                for (const archivo of archivos) {
+                    const arrayBufferDeArchivoParcial = await leerArchivoComoArrayBuffer(archivo)
+                    bytesDeArchivoUnido.set(new Uint8Array(arrayBufferDeArchivoParcial), compensacion)
+                    compensacion += arrayBufferDeArchivoParcial.byteLength;
+                }
+                const a = document.createElement("a");
+                const url = URL.createObjectURL(new Blob([bytesDeArchivoUnido], {
+                    type: "application/octet-stream",
+                }));
+                a.href = url;
+                a.download = nombreSugeridoParaArchivoUnido;
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        })
+    </script>
+</body>
+
+</html>
