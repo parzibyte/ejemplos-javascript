@@ -63,10 +63,6 @@
             if (rutasEnBase64) {
                 const rutas = JSON.parse(atob(rutasEnBase64));
                 for (const ruta of rutas) {
-                    const opcion = Object.assign(document.createElement("option"), {
-                        value: ruta.id,
-                        text: ruta.nombre,
-                    });
                     $rutaOrigen.appendChild(Object.assign(document.createElement("option"), {
                         value: ruta.id,
                         text: ruta.nombre,
