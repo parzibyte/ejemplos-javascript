@@ -80,20 +80,20 @@
             }
         });
         $enviar.addEventListener("click", () => {
-            function sendData() {
-                // Enviar datos de vuelta al bot
-                Telegram.WebApp.sendData(JSON.stringify({
-                    idRutaOrigen: parseInt($rutaOrigen.value),
-                    idRutaDestino: parseInt($rutaDestino.value),
-                    inicio: $inicio.value,
-                    fin: $fin.value,
-                    radio: $radio.valueAsNumber,
-                    dias: ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"].filter(nombreDia => {
-                        const $elemento = document.querySelector("#" + nombreDia);
-                        return $elemento.checked;
-                    }).join(","),
-                }));
-            }
+            // Enviar datos de vuelta al bot
+            const payload = JSON.stringify({
+                idRutaOrigen: parseInt($rutaOrigen.value),
+                idRutaDestino: parseInt($rutaDestino.value),
+                inicio: $inicio.value,
+                fin: $fin.value,
+                radio: $radio.valueAsNumber,
+                dias: ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"].filter(nombreDia => {
+                    const $elemento = document.querySelector("#" + nombreDia);
+                    return $elemento.checked;
+                }).join(","),
+            });
+            console.log({payload});
+            Telegram.WebApp.sendData(payload);
         });
     </script>
 </body>
