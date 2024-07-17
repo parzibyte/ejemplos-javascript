@@ -28,25 +28,25 @@
         <legend>Seleccione los días de la semana</legend>
 
         <label for="lunes">Lunes</label>
-        <input type="checkbox" id="lunes" name="dias" value="lunes">
+        <input type="checkbox" id="lunes" name="dias" value="Lunes">
 
         <label for="martes">Martes</label>
-        <input type="checkbox" id="martes" name="dias" value="martes">
+        <input type="checkbox" id="martes" name="dias" value="Martes">
 
         <label for="miercoles">Miércoles</label>
-        <input type="checkbox" id="miercoles" name="dias" value="miercoles">
+        <input type="checkbox" id="miercoles" name="dias" value="Miércoles">
 
         <label for="jueves">Jueves</label>
-        <input type="checkbox" id="jueves" name="dias" value="jueves">
+        <input type="checkbox" id="jueves" name="dias" value="Jueves">
 
         <label for="viernes">Viernes</label>
-        <input type="checkbox" id="viernes" name="dias" value="viernes">
+        <input type="checkbox" id="viernes" name="dias" value="Viernes">
 
         <label for="sabado">Sábado</label>
-        <input type="checkbox" id="sabado" name="dias" value="sabado">
+        <input type="checkbox" id="sabado" name="dias" value="Sábado">
 
         <label for="domingo">Domingo</label>
-        <input type="checkbox" id="domingo" name="dias" value="domingo">
+        <input type="checkbox" id="domingo" name="dias" value="Domingo">
     </fieldset>
     <button id="enviar">Enviar</button>
 
@@ -86,6 +86,9 @@
                 dias: ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"].filter(nombreDia => {
                     const $elemento = document.querySelector("#" + nombreDia);
                     return $elemento.checked;
+                }).map(nombreDia => {
+                    const $elemento = document.querySelector("#" + nombreDia);
+                    return $elemento.value;
                 }),
             });
             console.log({ payload });
