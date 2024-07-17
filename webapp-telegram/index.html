@@ -86,9 +86,9 @@
                 dias: ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"].filter(nombreDia => {
                     const $elemento = document.querySelector("#" + nombreDia);
                     return $elemento.checked;
-                }).join(","),
+                }),
             });
-            console.log({payload});
+            console.log({ payload });
             Telegram.WebApp.sendData(payload);
         });
     </script>
