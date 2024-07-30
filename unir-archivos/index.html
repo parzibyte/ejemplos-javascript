@@ -42,8 +42,8 @@
                 const bytesDeArchivoUnido = new Uint8Array(longitudDeArchivoUnidoEnBytes);
                 let compensacion = 0;
                 for (const archivo of archivos) {
-                    const arrayBufferDeArchivoParcial = await leerArchivoComoArrayBuffer(archivo)
-                    bytesDeArchivoUnido.set(new Uint8Array(arrayBufferDeArchivoParcial), compensacion)
+                    const arrayBufferDeArchivoParcial = await leerArchivoComoArrayBuffer(archivo);
+                    bytesDeArchivoUnido.set(new Uint8Array(arrayBufferDeArchivoParcial), compensacion);
                     compensacion += arrayBufferDeArchivoParcial.byteLength;
                 }
                 const a = document.createElement("a");
