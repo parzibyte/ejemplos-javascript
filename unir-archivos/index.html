@@ -8,6 +8,8 @@
 </head>
 
 <body>
+    <h2>Unir archivos con JavaScript</h2>
+    <p>Seleccionar los archivos a unir con el siguiente botón</p>
     <input type="file" id="archivos" multiple>
     <script>
         const leerArchivoComoArrayBuffer = (archivo) => {
@@ -26,6 +28,9 @@
             const $archivos = document.querySelector("#archivos");
             $archivos.addEventListener("change", async () => {
                 const archivos = $archivos.files;
+                if (archivos.length <= 0) {
+                    return;
+                }
                 let nombreSugeridoParaArchivoUnido = "";
                 let longitudDeArchivoUnidoEnBytes = 0;
                 for (const archivo of archivos) {
