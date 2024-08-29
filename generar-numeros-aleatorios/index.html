@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar números aleatorios</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+    <h1>Generar números aleatorios</h1>
+
+    <div class="form-group">
+        <label for="limiteInferior">Límite inferior (incluido)</label>
+        <input value="1" type="number" id="limiteInferior" placeholder="Límite inferior">
+    </div>
+
+    <div class="form-group">
+        <label for="limiteSuperior">Límite superior (incluido)</label>
+        <input value="100" type="number" id="limiteSuperior" placeholder="Límite superior">
+    </div>
+
+    <div class="form-group">
+        <label for="cantidad">Cantidad de números</label>
+        <input value="50" type="number" id="cantidad" placeholder="Cantidad de números">
+    </div>
+
+    <div class="form-group">
+        <label for="separador">Separador</label>
+        <textarea id="separador" placeholder="Separador"></textarea>
+    </div>
+    <button id="generarYMostrar">Generar y mostrar</button>
+    <button id="generarEnArchivo">Generar en archivo</button>
+    <pre id="contenedor"></pre>
+    <script>
+        // Tomado de https://parzibyte.me/blog/2020/08/01/javascript-numero-aleatorio-rango/
+        const obtenerNumeroAleatorioEnRango = (min, max) => {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            const $limiteInferior = document.querySelector("#limiteInferior"),
+                $limiteSuperior = document.querySelector("#limiteSuperior"),
+                $cantidad = document.querySelector("#cantidad"),
+                $generarYMostrar = document.querySelector("#generarYMostrar"),
+                $generarEnArchivo = document.querySelector("#generarEnArchivo"),
+                $contenedor = document.querySelector("#contenedor"),
+                $separador = document.querySelector("#separador");
+                $separador.value="\n";
+
+            const valoresSonValidos = () => {
+                if (!$limiteInferior.valueAsNumber) {
+                    return false;
+                }
+                if (!$limiteSuperior.valueAsNumber) {
+                    return false;
+                }
+                if (!$cantidad.valueAsNumber) {
+                    return false;
+                }
+                if (!$separador.value) {
+                    return false;
+                }
+                return true;
+            }
+
+            const generar = () => {
+                let resultado = "";
+                const separador = $separador.value;
+                const limiteInferior = $limiteInferior.valueAsNumber;
+                const limiteSuperior = $limiteSuperior.valueAsNumber;
+                const cantidad = $cantidad.valueAsNumber;
+                for (let i = 0; i < cantidad; i++) {
+                    resultado += (obtenerNumeroAleatorioEnRango(limiteInferior, limiteSuperior)).toString() + separador;
+                }
+                return resultado;
+            }
+
+            $generarYMostrar.addEventListener("click", () => {
+                if (!valoresSonValidos()) {
+                    return alert("Rellene todos los campos");
+                }
+                $contenedor.textContent = generar();
+            });
+            $generarEnArchivo.addEventListener("click", () => {
+                if (!valoresSonValidos()) {
+                    return alert("Rellene todos los campos");
+                }
+                const a = document.createElement("a");
+                const archivo = new Blob([generar()], { type: 'text/plain' });
+                const url = URL.createObjectURL(archivo);
+                a.href = url;
+                a.download = `${$cantidad.valueAsNumber} números aleatorios entre ${limiteInferior.valueAsNumber} y ${limiteSuperior.valueAsNumber}.txt`;
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        });
+    </script>
+</body>
+
+</html>
