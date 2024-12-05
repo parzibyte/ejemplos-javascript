@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar producto</title>
+</head>
+
+<body>
+    <a href="tasa.html">Ajustar tasa</a>
+    <a href="registrar_producto.html">Registrar producto</a>
+    <a href="index.html">Ver productos</a>
+    <h1>Registrando producto</h1>
+    <label for="nombre">Nombre
+        <input type="text" id="nombre">
+    </label>
+    <label for="precio">
+        Precio
+        <input type="number" id="precio">
+    </label>
+    <button id="btnGuardar">Guardar</button>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const $nombre = document.querySelector("#nombre"),
+                $precio = document.querySelector("#precio"),
+                $btnGuardar = document.querySelector("#btnGuardar");
+            const tasaActual = parseFloat(localStorage.getItem("tasa_actual"));
+            if (!tasaActual) {
+                return alert("No hay tasa. Primero ajuste la tasa");
+            }
+            const productos = JSON.parse(localStorage.getItem("productos")) || [];
+            $btnGuardar.addEventListener("click", () => {
+                const nombre = $nombre.value,
+                    precio = $precio.valueAsNumber;
+                if (!nombre || !precio) {
+                    return;
+                }
+                productos.push({
+                    nombre,
+                    precio,
+                })
+                localStorage.setItem("productos", JSON.stringify(productos));
+                alert("Guardado correctamente");
+            })
+        })
+    </script>
+</body>
+
+</html>

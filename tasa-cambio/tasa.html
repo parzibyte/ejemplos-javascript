@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajustar tasa</title>
+</head>
+
+<body>
+
+    <a href="tasa.html">Ajustar tasa</a>
+    <a href="registrar_producto.html">Registrar producto</a>
+    <a href="index.html">Ver productos</a>
+    <br>
+    <label for="tasa">Introduzca la tasa de cambio
+        <input type="number" id="tasa">
+    </label>
+    <button id="btnGuardar">Guardar</button>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const $tasa = document.querySelector("#tasa"),
+                $btnGuardar = document.querySelector("#btnGuardar");
+            // Esta es la tasa actual antes de poner la nueva
+            let tasaVieja = parseFloat(localStorage.getItem("tasa_actual"));
+
+            $btnGuardar.addEventListener("click", () => {
+                const tasaNueva = $tasa.valueAsNumber;
+                if (!tasaVieja) {
+                    tasaVieja = tasaNueva;
+                }
+                localStorage.setItem("tasa_anterior", tasaVieja.toString());
+                localStorage.setItem("tasa_actual", tasaNueva.toString());
+                // Actualizamos todos los precios. Si no hay productos, no pasará nada
+                const productos = JSON.parse(localStorage.getItem("productos")) || [];
+                for (let i = 0; i < productos.length; i++) {
+                    const precioViejo = productos[i].precio;
+                    const precioNuevo = precioViejo * tasaNueva / tasaVieja;
+                    productos[i].precio = precioNuevo;
+                }
+                localStorage.setItem("productos", JSON.stringify(productos));
+                alert("Guardada correctamente");
+            })
+
+        });
+    </script>
+</body>
+
+</html>

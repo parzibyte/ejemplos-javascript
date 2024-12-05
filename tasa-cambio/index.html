@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+</head>
+
+<body>
+    <a href="tasa.html">Ajustar tasa</a>
+    <a href="registrar_producto.html">Registrar producto</a>
+    <a href="index.html">Ver productos</a>
+    <h1>Productos</h1>
+    <div id="contenedor"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const productos = JSON.parse(localStorage.getItem("productos")) || [];
+            const $contenedor = document.querySelector("#contenedor");
+            for (const producto of productos) {
+                $contenedor.innerHTML += `
+                <p>${producto.nombre}: <strong>${producto.precio}</strong>
+</p>
+                <br>
+                `;
+            }
+        });
+    </script>
+</body>
+
+</html>
