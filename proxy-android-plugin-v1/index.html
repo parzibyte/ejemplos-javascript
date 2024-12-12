@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumir proxy de Android</title>
+    <script type="text/javascript" src="./conector.js"></script>
+</head>
+
+<body>
+    <label for="">Dirección completa del plugin Desktop formada por la IP de la computadora, el puerto del plugin y
+        la ruta /imprimir_en. Por ejemplo http://192.168.0.24:8000/imprimir_en
+    </label>
+    <br>
+    <input value="http://192.168.0.24:8080" type="text" placeholder="IP de plugin Desktop con puerto"
+        id="direccionServidor">
+    <br>
+    <label for="impresora">Nombre de la impresora existente en la computadora</label>
+    <br>
+    <input type="text" id="impresora">
+    <br>
+    <br>
+    <button id="hacerPeticion">Hacer petición</button>
+    <div id="resultado"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const $direccionPluginDesktop = document.querySelector("#direccionServidor"),
+                $hacerPeticion = document.querySelector("#hacerPeticion"),
+                $resultado = document.querySelector("#resultado"),
+                $impresora = document.querySelector("#impresora");
+            $hacerPeticion.addEventListener("click", async () => {
+                $resultado.textContent = "cargando...";
+                try {
+                    /*
+                       El documento se crea como siempre
+                    */
+                    let conector = new Impresora();
+                    conector.setFontSize(1, 1);
+                    conector.write("Hola mundo\nImprimiendo remotamente");
+
+                    /*
+                    Nombre de la impresora compartida en la computadora
+                    donde se ejecuta el plugin Desktop (NO ANDROID)
+                    */
+                    let nombreImpresora = $impresora.value;
+
+                    /*
+                    Pero no se invoca a imprimir ni a imprimirEn. En su 
+                    lugar vamos a crear una carga útil personalizada
+                    */
+                    const payload = {
+                        operaciones: conector.operaciones,
+                        impresora: nombreImpresora,
+                    };
+
+                    /*
+                        Dirección para comunicarnos con "Puente para plugin".
+
+                        Recuerda: este código se ejecutará en un navegador web,
+                        y ese navegador web se debe ejecutar en el mismo dispositivo
+                        Android donde está el Puente para el plugin minimizado
+                    */
+                    const direccionPuenteLocal = "http://localhost:8000";
+
+
+                    /*
+
+                        Dirección del plugin Desktop versión 1 (NO ANDROID). Es la
+                        IP de la computadora que se encuentra en la misma LAN
+                        que el dispositivo Android, incluyendo el puerto
+
+                        Si la IP de la computadora que ejecuta el plugin es
+                        192.168.0.6 y el plugin Desktop versión 1 (NO ANDROID) se
+                        ejecuta en el puerto 8000 entonces podemos decir que la 
+                        dirección remota del plugin desktop es http://192.168.0.6:8000
+
+                        Recuerda que esa es la raíz, pero para imprimir debemos invocar
+                        a la ruta /imprimir_en así que queda en
+                        http://192.168.0.6:8000/imprimir_en
+
+                        En este caso 192.168.0.6 es una IP de ejemplo. En tu caso debes
+                        averiguar la IP de la computadora que ejecuta el plugin Desktop
+                        y de ser posible hacerla estática
+                    */
+                    const direccionRemota = $direccionPluginDesktop.value;
+
+                    const respuestaHttp = await fetch(direccionPuenteLocal, {
+                        method: "POST",
+                        body: JSON.stringify(payload),
+                        headers: {
+                            "x-reenviar-a": direccionRemota,
+                        }
+                    })
+                    const respuestaComoTexto = await respuestaHttp.text();
+                    $resultado.textContent = respuestaComoTexto;
+                } catch (e) {
+                    $resultado.textContent = "Error: " + e.message;
+                }
+
+            })
+        })
+    </script>
+</body>
+
+</html>
