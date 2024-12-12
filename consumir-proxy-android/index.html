@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumir proxy de Android</title>
+</head>
+
+<body>
+    <input value="http://localhost:8080" type="text" placeholder="Dirección del servidor" id="direccionServidor">
+    <br>
+    <input type="text" placeholder="Dirección remota" id="direccionRemota">
+    <br>
+
+    <select id="metodo">
+        <option value="GET">GET</option>
+        <option value="POST">POST</option>
+    </select>
+    <br>
+    <textarea id="cuerpo"></textarea>
+    <br>
+    <button id="hacerPeticion">Hacer petición</button>
+    <div id="resultado"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const $direccionRemota = document.querySelector("#direccionRemota"),
+                $direccionServidor = document.querySelector("#direccionServidor"),
+                $metodo = document.querySelector("#metodo"),
+                $cuerpo = document.querySelector("#cuerpo"),
+                $hacerPeticion = document.querySelector("#hacerPeticion"),
+                $resultado = document.querySelector("#resultado");
+            $hacerPeticion.addEventListener("click", async () => {
+                    $resultado.textContent = "cargando...";
+                try {
+                    const direccionServidor = $direccionServidor.value;
+                    const objeto = {
+                        method: $metodo.value,
+                        headers: {
+                            "x-reenviar-a": $direccionRemota.value,
+                        }
+                    };
+                    if ($metodo.value !== "GET") {
+                        objeto.body = $cuerpo.value;
+                    }
+                    const respuestaHttp = await fetch(direccionServidor, objeto);
+                    const respuestaComoTexto = await respuestaHttp.text();
+                    $resultado.textContent = respuestaComoTexto;
+                } catch (e) {
+                    $resultado.textContent = "Error: " + e.message;
+                }
+
+            })
+        })
+    </script>
+</body>
+
+</html>
