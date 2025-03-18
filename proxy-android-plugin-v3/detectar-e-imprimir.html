@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detectar e imprimir según puente</title>
+</head>
+
+<body>
+
+    <div id="contenedorInformacionRemota">
+        <label for="">Dirección completa del plugin Desktop formada por la IP de la computadora, el puerto del plugin y
+            la ruta /imprimir. Por ejemplo http://192.168.0.24:8000/imprimir
+        </label>
+        <br>
+        <input value="http://192.168.0.24:8000/imprimir" type="text" placeholder="IP de plugin Desktop con puerto"
+            id="direccionServidor">
+        <br>
+    </div>
+    <label for="impresora">Nombre de la impresora existente en la computadora</label>
+    <br>
+    <input type="text" id="impresora">
+    <br>
+    <br>
+    <button id="hacerPeticion">Hacer petición</button>
+    <div style="padding: 0.2rem; margin-top: 0.1rem; background-color: oklch(0.488 0.243 264.376); border-radius: 0.5rem; color: white;" id="resultado"></div>
+    <script src="detectar-e-imprimir.js"></script>
+</body>
+
+</html>
