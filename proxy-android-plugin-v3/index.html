@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumir proxy de Android con plugin versión 3</title>
+    <script type="text/javascript" src="./conector.js"></script>
+</head>
+
+<body>
+    <label for="">Dirección completa del plugin Desktop formada por la IP de la computadora, el puerto del plugin y
+        la ruta /imprimir. Por ejemplo http://192.168.0.24:8000/imprimir
+    </label>
+    <br>
+    <input value="http://192.168.0.24:8000/imprimir" type="text" placeholder="IP de plugin Desktop con puerto"
+        id="direccionServidor">
+    <br>
+    <label for="impresora">Nombre de la impresora existente en la computadora</label>
+    <br>
+    <input type="text" id="impresora">
+    <br>
+    <br>
+    <button id="hacerPeticion">Hacer petición</button>
+    <div id="resultado"></div>
+    <script src="script.js"></script>
+</body>
+
+</html>
