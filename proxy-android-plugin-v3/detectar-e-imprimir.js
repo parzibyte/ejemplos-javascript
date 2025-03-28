@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             {
                 "nombre": "EscribirTexto",
                 "argumentos": [
-                    "Hola\nimpresora\ndesde puente\ncon JavaScript\n"
+                    "Hola\nimpresora\ndesde puente\ncon JavaScript\nUna ñ: soy ñ\n"
                 ]
             }
         ];
